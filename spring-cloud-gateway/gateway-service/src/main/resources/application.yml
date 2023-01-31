@@ -27,6 +27,10 @@ spring:
           uri: lb://SECOND-SERVICE
           predicates:
             - Path=/second-service/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
           filters:
 #            - AddRequestHeader=second-request, second-request-header2
 #            - AddResponseHeader=second-response, second-response-header-2
@@ -42,5 +46,6 @@ spring:
             baseMessage: Spring Cloud Gateway GlobalFilter
             preLogger: true
             postLogger: true
+
   main:
     web-application-type: reactive
