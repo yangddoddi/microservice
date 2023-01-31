@@ -4,8 +4,8 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -16,7 +16,7 @@ spring:
     gateway:
       routes:
         - id: first-service
-          uri: http://localhost:8081/
+          uri: lb://FIRST-SERVICE
           predicates:
             - Path=/first-service/**
           filters:
@@ -24,7 +24,7 @@ spring:
 #            - AddResponseHeader=first-response, first-response-header-2
             - CustomFilter
         - id: second-service
-          uri: http://localhost:8082/
+          uri: lb://SECOND-SERVICE
           predicates:
             - Path=/second-service/**
           filters:
@@ -42,3 +42,5 @@ spring:
             baseMessage: Spring Cloud Gateway GlobalFilter
             preLogger: true
             postLogger: true
+  main:
+    web-application-type: reactive
