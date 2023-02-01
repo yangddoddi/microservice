@@ -7,9 +7,13 @@ import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.mapper.UserResponseMapper;
 import com.example.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -49,5 +53,15 @@ public class UserServiceImpl implements UserService {
         return users.stream()
                 .map(userResponseMapper::of)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User findUser = userRepository
+                .findByEmail(username)
+                .orElseThrow(NoSuchElementException::new);
+
+        return new org.springframework.security.core.userdetails.User
+                (findUser.getEmail(), findUser.getEncryptedPassword(), true, true, true, true, new ArrayList<>());
     }
 }

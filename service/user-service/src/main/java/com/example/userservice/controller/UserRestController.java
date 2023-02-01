@@ -54,4 +54,9 @@ public class UserRestController {
         ResponseUser response = userService.getUserByUserId(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<> loginUser(@RequestBody(RequestLogin request)) {
+
+    }
 }
