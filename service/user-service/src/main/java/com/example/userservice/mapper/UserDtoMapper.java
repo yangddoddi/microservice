@@ -10,4 +10,5 @@ import org.mapstruct.Mapper;
 public interface UserDtoMapper {
     ResponseUser of (UserDto dto);
     UserDto of (RequestUser dto);
+    UserDto of (User user);
 }

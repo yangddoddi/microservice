@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class UserRestController {
     private final Greeting greeting;
@@ -55,8 +55,8 @@ public class UserRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<> loginUser(@RequestBody(RequestLogin request)) {
-
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<> loginUser(@RequestBody(RequestLogin request)) {
+//
+//    }
 }

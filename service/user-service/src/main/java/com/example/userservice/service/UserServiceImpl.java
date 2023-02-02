@@ -3,6 +3,7 @@ package com.example.userservice.service;
 import com.example.userservice.dto.ResponseUser;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.entity.User;
+import com.example.userservice.mapper.UserDtoMapper;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.mapper.UserResponseMapper;
 import com.example.userservice.repository.UserRepository;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserResponseMapper userResponseMapper;
+    private final UserDtoMapper userDtoMapper;
 
     @Override
     public ResponseUser saveUser(UserDto userDto) {
@@ -53,6 +55,14 @@ public class UserServiceImpl implements UserService {
         return users.stream()
                 .map(userResponseMapper::of)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto findUserDetailsByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(NoSuchElementException::new);
+
+        return userDtoMapper.of(user);
     }
 
     @Override
