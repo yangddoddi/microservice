@@ -27,6 +27,11 @@ spring:
   config:
     import:
       - classpath:/bootstrap.yml
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   instance:
@@ -40,12 +45,8 @@ eureka:
 greeting:
   message: welcome to the simple e-commerce
 
-token:
-  expiration_time: 86400
-  secret: user_token
-
 management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, health, beans, busrefresh

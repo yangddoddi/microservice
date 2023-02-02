@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authenticationManager(authenticationManager(authenticationConfiguration))
                 .userDetailsService(userService)
                 .authorizeRequests()
+                .antMatchers("/error/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/**").hasIpAddress("192.168.0.100")
                 .and()
