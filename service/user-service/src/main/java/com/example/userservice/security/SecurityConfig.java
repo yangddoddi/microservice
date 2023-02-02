@@ -28,8 +28,8 @@ public class SecurityConfig {
                 .authenticationManager(authenticationManager(authenticationConfiguration))
                 .userDetailsService(userService)
                 .authorizeRequests()
-                .antMatchers("/**")
-                .hasIpAddress("192.168.0.100")
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/**").hasIpAddress("192.168.0.100")
                 .and()
                 .addFilter(getAuthenticationFilter())
                 .build();

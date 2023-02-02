@@ -40,3 +40,9 @@ greeting:
 token:
   expiration_time: 86400
   secret: user_token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
