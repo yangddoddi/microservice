@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.config.OrderServiceClient;
 import com.example.userservice.dto.ResponseOrder;
 import com.example.userservice.dto.ResponseUser;
 import com.example.userservice.dto.UserDto;
@@ -9,6 +10,7 @@ import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.mapper.UserResponseMapper;
 import com.example.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final UserDtoMapper userDtoMapper;
     private final RestTemplate restTemplate;
     private final Environment environment;
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public ResponseUser saveUser(UserDto userDto) {
@@ -51,13 +54,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(NoSuchElementException::new);
 
         // using as rest template
-        String url = String.format(Objects.requireNonNull(environment.getProperty("order_service.url")), userId);
-        ResponseEntity<List<ResponseOrder>> orderResponse =
-                restTemplate.exchange(url, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<ResponseOrder>>() {
-        });
+//        String url = String.format(Objects.requireNonNull(environment.getProperty("order_service.url")), userId);
+//        ResponseEntity<List<ResponseOrder>> orderResponse =
+//                restTemplate.exchange(url, HttpMethod.GET, null,
+//                        new ParameterizedTypeReference<List<ResponseOrder>>() {
+//        });
 
-        List<ResponseOrder> orders = orderResponse.getBody();
+        // using as feign client
+        List<ResponseOrder> orders = orderServiceClient.getOrders(userId);
 
         return userResponseMapper.of(user, orders);
     }
