@@ -54,9 +54,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(NoSuchElementException::new);
 
         // using as rest template
-        String orderUrl = "http://127.0.0.1:8000/order-service/%s/orders";
+        String url = String.format(environment.getProperty("order_service.url"), userId);
         ResponseEntity<List<ResponseOrder>> orderResponse =
-                restTemplate.exchange(orderUrl, HttpMethod.POST, null,
+                restTemplate.exchange(url, HttpMethod.POST, null,
                         new ParameterizedTypeReference<List<ResponseOrder>>() {
         });
 
