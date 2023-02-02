@@ -24,6 +24,9 @@ spring:
     username: root
     password: 190711
     driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import:
+      - classpath:/bootstrap.yml
 
 eureka:
   instance:
