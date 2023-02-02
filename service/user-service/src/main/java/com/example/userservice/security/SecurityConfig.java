@@ -31,12 +31,19 @@ public class SecurityConfig {
                 .antMatchers("/**")
                 .hasIpAddress("192.168.0.100")
                 .and()
-                .addFilter(new AuthenticationFilter(userService, environment))
+                .addFilter(getAuthenticationFilter())
                 .build();
+    }
+
+    private AuthenticationFilter getAuthenticationFilter() throws Exception {
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(userService, environment);
+        authenticationFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        return authenticationFilter;
     }
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
+        return configuration
+                .getAuthenticationManager();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.Greeting;
+import com.example.userservice.dto.RequestLogin;
 import com.example.userservice.dto.RequestUser;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.mapper.UserDtoMapper;
@@ -55,8 +56,9 @@ public class UserRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<> loginUser(@RequestBody(RequestLogin request)) {
-//
-//    }
+    @PostMapping("/login")
+    public Void loginUser(@RequestBody RequestLogin request) {
+
+        return null;
+    }
 }
