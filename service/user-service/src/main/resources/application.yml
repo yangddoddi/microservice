@@ -30,3 +30,7 @@ management:
     web:
       exposure:
         include: refresh, health, beans, busrefresh
+
+logging:
+  level:
+    org.example.user-service.client: DEBUG
