@@ -20,10 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,9 +51,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(NoSuchElementException::new);
 
         // using as rest template
-        String url = String.format(environment.getProperty("order_service.url"), userId);
+        String url = String.format(Objects.requireNonNull(environment.getProperty("order_service.url")), userId);
         ResponseEntity<List<ResponseOrder>> orderResponse =
-                restTemplate.exchange(url, HttpMethod.POST, null,
+                restTemplate.exchange(url, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<ResponseOrder>>() {
         });
 
