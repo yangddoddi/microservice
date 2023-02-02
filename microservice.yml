@@ -1,9 +1,30 @@
 token:
-  expiration_time: 87400
+  expiration_time: 874000000
   secret: user_token_new
 
 gateway:
   ip: 192.168.0.100
 
 test:
-  test_only: bus
+  test_only: hihi
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update #update create-update validate
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 500
+    database: mysql
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/micro?serverTimezone=Asia/Seoul
+    username: root
+    password: "{cipher}b7348479287b4bbae4aaba95c157db8eb772e3808cc6adb6ee136349137c0bd6"
+    driver-class-name: com.mysql.cj.jdbc.Driver

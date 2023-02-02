@@ -9,28 +9,9 @@ spring:
     config:
       server:
         native:
-          search-locations: file://Users/eunchanyang/Desktop/java/yml-only
+          search-locations: file:///Users/eunchanyang/Desktop/java/yml-only
         git:
           uri: https://github.com/yangddoddi/microservice.git
-  jpa:
-    hibernate:
-      ddl-auto: update #update create-update validate
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-        default_batch_fetch_size: 500
-    database: mysql
-    open-in-view: false
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 20MB
-  datasource:
-    url: jdbc:mysql://localhost:3306/micro?serverTimezone=Asia/Seoul
-    username: root
-    password: '{cipher}b7348479287b4bbae4aaba95c157db8eb772e3808cc6adb6ee136349137c0bd6'
-    driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
     host: 127.0.0.1
     port: 5672
