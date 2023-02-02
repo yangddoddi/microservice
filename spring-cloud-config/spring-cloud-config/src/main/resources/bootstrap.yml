@@ -1,2 +1,6 @@
 encrypt:
+#  key-store:
+#    location: file://${user.home}/eunchanyang/Desktop/java/keystore/secretkey.jks
+#    password: test1234
+#    alias: secretkey
   key: abcdefgasdaksasd2223asdsadcxzczxczxc
