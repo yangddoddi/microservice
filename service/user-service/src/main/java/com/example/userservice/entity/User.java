@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 @ToString
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {

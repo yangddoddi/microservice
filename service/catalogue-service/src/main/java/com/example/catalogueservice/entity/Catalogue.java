@@ -1,6 +1,7 @@
 package com.example.catalogueservice.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Catalogue implements Serializable {
     @Column(nullable = false)
     private String productName;
 
+    @Setter
     @Column(nullable = false)
     private Integer stock;
 

@@ -4,6 +4,7 @@ import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.dto.RequestOrder;
 import com.example.orderservice.dto.ResponseOrder;
 import com.example.orderservice.mapper.OrderRequestMapper;
+import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -21,6 +22,7 @@ public class OrderRestController {
     private final OrderService orderService;
     private final Environment environment;
     private final OrderRequestMapper orderRequestMapper;
+    private final KafkaProducer kafkaProducer;
 
     @GetMapping("/health_check")
     public String status() {
@@ -29,22 +31,26 @@ public class OrderRestController {
     }
 
     @PostMapping("/{user-id}/orders")
-    public ResponseEntity<ResponseOrder> createUser(@Valid @RequestBody RequestOrder request,
+    public ResponseEntity<ResponseOrder> createOrder(@Valid @RequestBody RequestOrder request,
                                                     @PathVariable(name = "user-id") String userId) {
+        // jpa
         OrderDto dto = orderRequestMapper.of(request, userId);
         ResponseOrder response = orderService.createOrder(dto);
+
+        // kafka
+        kafkaProducer.send("catalog-topic", response);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("{user-id}/orders")
-    public ResponseEntity<List<ResponseOrder>> getUsers(@PathVariable(name = "user-id") String userId) {
+    public ResponseEntity<List<ResponseOrder>> getOrders(@PathVariable(name = "user-id") String userId) {
         List<ResponseOrder> response = orderService.getOrderByUserId(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/orders/{order-id}")
-    public ResponseEntity<ResponseOrder> getUser(@PathVariable(name = "order-id") String orderId) {
+    public ResponseEntity<ResponseOrder> getOrder(@PathVariable(name = "order-id") String orderId) {
         ResponseOrder response = orderService.getOrderByOrderId(orderId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
