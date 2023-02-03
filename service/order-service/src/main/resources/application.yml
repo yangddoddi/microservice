@@ -7,7 +7,7 @@ spring:
     name: order-service
   jpa:
     hibernate:
-      ddl-auto: update #update create-update validate
+#      ddl-auto: validate #update create-update validate
     properties:
       hibernate:
         format_sql: true

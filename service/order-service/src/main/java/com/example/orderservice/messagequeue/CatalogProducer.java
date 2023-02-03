@@ -1,6 +1,5 @@
 package com.example.orderservice.messagequeue;
 
-import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.dto.ResponseOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KafkaProducer {
+public class CatalogProducer {
     private final ObjectMapper objectMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
