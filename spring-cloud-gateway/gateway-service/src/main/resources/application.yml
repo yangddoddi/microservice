@@ -81,6 +81,14 @@ spring:
                 baseMessage: Hi, there.
                 preLogger: true
                 postLogger: true
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
       default-filters:
         - name : GlobalFilter
           args:
