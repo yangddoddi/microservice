@@ -11,6 +11,7 @@ import com.example.orderservice.messagequeue.CatalogProducer;
 import com.example.orderservice.messagequeue.OrderProducer;
 import com.example.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/order-service")
 @RequiredArgsConstructor
@@ -59,7 +61,9 @@ public class OrderRestController {
 
     @GetMapping("{user-id}/orders")
     public ResponseEntity<List<ResponseOrder>> getOrders(@PathVariable(name = "user-id") String userId) {
+        log.info("Before retrieve orders data");
         List<ResponseOrder> response = orderService.getOrderByUserId(userId);
+        log.info("After retrieve orders data");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -24,6 +24,12 @@ spring:
     username: root
     password: 190711
     driver-class-name: com.mysql.cj.jdbc.Driver
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
 
 eureka:
   instance:
