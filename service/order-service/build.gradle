@@ -41,6 +41,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.16"
 
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 }
 
 dependencyManagement {

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-@Component
+//@Component
 public class UserServiceErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
