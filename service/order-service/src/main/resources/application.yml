@@ -46,3 +46,9 @@ greeting:
 logging:
   level:
     com.example.com.example.orderservice: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

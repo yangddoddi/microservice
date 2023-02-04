@@ -7,6 +7,7 @@ import com.example.userservice.dto.UserDto;
 import com.example.userservice.mapper.UserDtoMapper;
 import com.example.userservice.service.UserService;
 import com.example.userservice.dto.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class UserRestController {
     private final UserDtoMapper userDtoMapper;
     private final Environment environment;
 
+    @Timed(value = "user.status", longTask = true)
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's Working in user service"
@@ -35,6 +37,7 @@ public class UserRestController {
                 + ", test only = " + environment.getProperty("test.test_only"));
     }
 
+    @Timed(value = "user.welcome", longTask = true)
     @GetMapping("/welcome")
     public String welcome() {
         return greeting.getMessage();
